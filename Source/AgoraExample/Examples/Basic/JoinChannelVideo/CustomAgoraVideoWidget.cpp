@@ -328,7 +328,13 @@ void UCustomAgoraVideoWidget::FUserRtcEventHandler::onLeaveChannel(const agora::
 
 UImage* UCustomAgoraVideoWidget::GetRemoteImage() const
 {
-	//for()
+	for(auto& View : VideoViewMap)
+	{
+		if(View.Key.uid != 0)
+		{
+			return View.Value->View;
+		}
+	}
 
 	return nullptr;
 }
