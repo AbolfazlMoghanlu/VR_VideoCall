@@ -241,7 +241,7 @@ void UAgoraVideoWidget::FUserRtcEventHandler::onJoinChannelSuccess(const char* c
 	{
 			if (!IsWidgetValid())
 			{
-				UBFL_Logger::PrintError(FString::Printf(TEXT("%s bIsDestruct "), *FString(FUNCTION_MACRO)));
+				UBFL_Logger::PrintError(FString::Printf(TEXT("%s bIsDestruct "), *FString(FUNCTION_MACRO))); \
 				return;
 			}
 			UBFL_Logger::Print(FString::Printf(TEXT("%s "), *FString(FUNCTION_MACRO)), WidgetPtr->GetLogMsgViewPtr());
