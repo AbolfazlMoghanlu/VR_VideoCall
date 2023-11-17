@@ -19,7 +19,4 @@ public:
 	static FString ConvertToAbsolutePath(FString InRelativePath, bool bAndroidUseInternalBasePath = false);
 
 	static void CreateMediaFileWithSource(FString SrcPath,FString DstPath);
-
-	UFUNCTION(Blueprintcallable)
-	static bool IsAgoraAudioOnlySDK();
 };

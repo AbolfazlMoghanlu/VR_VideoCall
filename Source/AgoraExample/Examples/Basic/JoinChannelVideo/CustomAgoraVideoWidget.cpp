@@ -305,6 +305,37 @@ void UCustomAgoraVideoWidget::FUserRtcEventHandler::onVideoSizeChanged(VIDEO_SOU
 		});
 }
 
+void UCustomAgoraVideoWidget::FUserRtcEventHandler::onLocalVideoStateChanged(VIDEO_SOURCE_TYPE source, LOCAL_VIDEO_STREAM_STATE state, LOCAL_VIDEO_STREAM_ERROR error)
+{
+	if (!IsWidgetValid())
+		return;
+
+	AsyncTask(ENamedThreads::GameThread, [=]()
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Local video changed _ %i _ %i"), state, error);
+
+			if (state == 0)
+			{
+				WidgetPtr->LocalVideoStoped();
+			}
+
+			else
+			{
+				WidgetPtr->LocalVideoStarted();
+			}
+		});
+}
+
+void UCustomAgoraVideoWidget::FUserRtcEventHandler::onRemoteVideoStateChanged(uid_t uid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
+{
+	AsyncTask(ENamedThreads::GameThread, [=]()
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Remote video changed _ %i _ %i"), state, reason);
+
+
+		});
+}
+
 void UCustomAgoraVideoWidget::FUserRtcEventHandler::onLeaveChannel(const agora::rtc::RtcStats& stats) 
 {
 	if (!IsWidgetValid())
@@ -312,14 +343,30 @@ void UCustomAgoraVideoWidget::FUserRtcEventHandler::onLeaveChannel(const agora::
 
 	AsyncTask(ENamedThreads::GameThread, [=]()
 	{
-			if (!IsWidgetValid())
-			{
-				UBFL_Logger::PrintError(FString::Printf(TEXT("%s bIsDestruct "), *FString(FUNCTION_MACRO)));
-				return;
-			}
-			UBFL_Logger::Print(FString::Printf(TEXT("%s "), *FString(FUNCTION_MACRO)), WidgetPtr->GetLogMsgViewPtr());
+		if (!IsWidgetValid())
+		{
+			UBFL_Logger::PrintError(FString::Printf(TEXT("%s bIsDestruct "), *FString(FUNCTION_MACRO)));
+			return;
+		}
+		UBFL_Logger::Print(FString::Printf(TEXT("%s "), *FString(FUNCTION_MACRO)), WidgetPtr->GetLogMsgViewPtr());
 
-		WidgetPtr->ReleaseVideoView(0, agora::rtc::VIDEO_SOURCE_TYPE::VIDEO_SOURCE_CAMERA);
+		//WidgetPtr->ReleaseVideoView(0, agora::rtc::VIDEO_SOURCE_TYPE::VIDEO_SOURCE_CAMERA);
+
+// 		TArray<uint32> uids;
+// 
+// 
+// 		for (auto& map : WidgetPtr->VideoViewMap)
+// 		{
+// 			uids.AddUnique(map.Key.uid);
+// 		}
+// 
+// 		for (uint32 i : uids)
+// 		{
+// 			WidgetPtr->ReleaseVideoView(i, agora::rtc::VIDEO_SOURCE_TYPE::VIDEO_SOURCE_CAMERA);
+// 		}
+
+		UBFL_VideoViewManager::ReleaseAllVideoView(WidgetPtr->VideoViewMap);
+
 	});
 }
 #pragma endregion
@@ -337,4 +384,46 @@ UImage* UCustomAgoraVideoWidget::GetRemoteImage() const
 	}
 
 	return nullptr;
+}
+
+UImage* UCustomAgoraVideoWidget::GetLocalImage() const
+{
+	for(auto& View : VideoViewMap)
+	{
+		if(View.Key.uid == 0)
+		{
+			return View.Value->View;
+		}
+	}
+
+	return nullptr;
+}
+
+void UCustomAgoraVideoWidget::EnableAudio(bool Enable)
+{
+	if (Enable)
+	{
+		RtcEngineProxy->enableAudio();
+	}
+	else
+	{
+		RtcEngineProxy->disableAudio();
+	}
+}	
+
+void UCustomAgoraVideoWidget::EnableVideo(bool Enable)
+{
+	if (Enable)
+	{
+		RtcEngineProxy->enableVideo();
+	}
+	else
+	{
+		RtcEngineProxy->disableVideo();
+	}
+}
+
+void UCustomAgoraVideoWidget::RenewToken(FString NewToken)
+{
+	Token = NewToken;
 }

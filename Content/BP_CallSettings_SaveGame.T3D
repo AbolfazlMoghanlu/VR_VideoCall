@@ -1,0 +1,18 @@
+Begin Object Class=/Script/Engine.Blueprint Name="BP_CallSettings_SaveGame" ExportPath=/Script/Engine.Blueprint'"/Game/VRBanking/agora/BP_CallSettings_SaveGame.BP_CallSettings_SaveGame"'
+   Begin Object Class=/Script/Engine.EdGraph Name="EventGraph" ExportPath=/Script/Engine.EdGraph'"/Game/VRBanking/agora/BP_CallSettings_SaveGame.BP_CallSettings_SaveGame:EventGraph"'
+   End Object
+   Begin Object Name="EventGraph" ExportPath=/Script/Engine.EdGraph'"/Game/VRBanking/agora/BP_CallSettings_SaveGame.BP_CallSettings_SaveGame:EventGraph"'
+      Schema=/Script/CoreUObject.Class'"/Script/BlueprintGraph.EdGraphSchema_K2"'
+      bAllowDeletion=False
+      GraphGuid=815F65B64846F1890858928C553F7931
+   End Object
+   ParentClass=/Script/CoreUObject.Class'"/Script/Engine.SaveGame"'
+   BlueprintSystemVersion=2
+   UbergraphPages(0)=/Script/Engine.EdGraph'"EventGraph"'
+   NewVariables(0)=(VarName="Settings",VarGuid=E4B03DB54B4F6B63D522AF9BBF16337A,VarType=(PinCategory="struct",PinSubCategoryObject=/Script/Engine.UserDefinedStruct'"/Game/VRBanking/agora/S_CallSettings.S_CallSettings"'),FriendlyName="Settings",Category=NSLOCTEXT("KismetSchema", "Default", "Default"),PropertyFlags=5)
+   CategorySorting(0)="Default"
+   LastEditedDocuments(0)=(EditedObjectPath="/Game/VRBanking/agora/BP_CallSettings_SaveGame.BP_CallSettings_SaveGame:EventGraph",SavedViewOffset=(X=64.000000,Y=-357.940476),SavedZoomAmount=0.750000)
+   GeneratedClass=/Script/Engine.BlueprintGeneratedClass'"BP_CallSettings_SaveGame_C"'
+   bLegacyNeedToPurgeSkelRefs=False
+   BlueprintGuid=D499CEF845C882A349F910A127348933
+End Object

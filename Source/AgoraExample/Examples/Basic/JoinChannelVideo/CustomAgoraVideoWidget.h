@@ -57,6 +57,10 @@ public:
 
 		void onVideoSizeChanged(VIDEO_SOURCE_TYPE sourceType, uid_t uid, int width, int height, int rotation) override;
 
+		void onLocalVideoStateChanged(VIDEO_SOURCE_TYPE source, LOCAL_VIDEO_STREAM_STATE state, LOCAL_VIDEO_STREAM_ERROR error) override;
+
+		void onRemoteVideoStateChanged(uid_t uid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed) override;
+
 #pragma endregion
 
 		inline bool IsWidgetValid() { return WidgetPtr.IsValid(); }
@@ -173,6 +177,24 @@ public:
 	UFUNCTION(BLueprintCallable)
 	UImage* GetRemoteImage() const;
 	
+	UFUNCTION(BLueprintCallable)
+	UImage* GetLocalImage() const;
+	
+	UFUNCTION(BLueprintCallable)
+	void EnableAudio(bool Enable);
+
+	UFUNCTION(BLueprintCallable)
+	void EnableVideo(bool Enable);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void LocalVideoStoped();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void LocalVideoStarted();
+
+	UFUNCTION(BLueprintCallable)
+	void RenewToken(FString NewToken);
+
 protected:
 
 	IRtcEngine* RtcEngineProxy;

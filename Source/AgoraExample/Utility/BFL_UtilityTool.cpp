@@ -81,11 +81,3 @@ void UBFL_UtilityTool::CreateMediaFileWithSource(FString SrcPath, FString DstPat
 	//bSuccess = DstAr && ConcertUtil::Copy(*DstAr, *InPackageDataStream.DataAr, InPackageDataStream.DataSize);
 
 }
-
-bool UBFL_UtilityTool::IsAgoraAudioOnlySDK()
-{
-#if AGORA_UESDK_AUDIO_ONLY
-	return true;
-#endif
-	return false;
-}

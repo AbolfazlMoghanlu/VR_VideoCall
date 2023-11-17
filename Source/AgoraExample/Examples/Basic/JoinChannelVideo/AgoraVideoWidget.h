@@ -183,6 +183,7 @@ protected:
 	void NativeDestruct() override;
 
 
+
 	TSharedPtr<FUserRtcEventHandler> UserRtcEventHandler;
 
 };
